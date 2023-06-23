@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Flink数据可视化</title>
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.staticfile.org/echarts/5.1.1/echarts.js"></script>
+    <script src="../JS/essos.js"></script>
+    <style>
+        div{
+            margin: 10px;
+            border: black 3px;
+            background: beige;
+        }
+    </style>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="TypeNum" style="width: 1000px;height: 800px;"></div>
+<div id="TypeAvg" style="width: 1000px;height: 1200px;"></div>
+<div id="Top5Pokemon" style="width: 1000px;height: 800px;"></div>
+<div id="NoEffect" style="width: 1000px;height: 800px;"></div>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('TypeNum'));
+    // 指定图表的配置项和数据
+    option1 = {
+        title:{
+            text: '宝可梦的种族构成'
+        },
+        legend: {
+            top: 'bottom'
+        },
+        toolbox: {
+            right:20,
+            show: true,
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        series: [
+            {
+                name: '种族及数量',
+                type: 'pie',
+                radius: [30, 250],
+                center: ['50%', '50%'],
+                roseType: 'area',
+                itemStyle: {
+                    borderRadius: 30
+                },
+                data: [
+                    {value: 34, name: 'FAIRY 34'},
+                    {value: 37, name: 'ICE 37'},
+                    {value: 44, name: 'DRAGON 44'},
+                    {value: 45, name: 'GHOST 45'},
+                    {value: 47, name: 'STEEL 47'},
+                    {value: 49, name: 'DARK 49'},
+                    {value: 51, name: 'ELECTRIC 51'},
+                    {value: 51, name: 'FIGHTING 51'},
+                    {value: 56, name: 'ROCK 56'},
+                    {value: 61, name: 'POISON 61'},
+                    {value: 62, name: 'GROUND 62'},
+                    {value: 62, name: 'FIRE 62'},
+                    {value: 71, name: 'BUG 71'},
+                    {value: 83, name: 'PSYCHIC 83'},
+                    {value: 93, name: 'GRASS 93'},
+                    {value: 100, name: 'NORMAL 100'},
+                    {value: 100, name: 'FLYING 100'},
+                    {value: 122, name: 'WATER 122'}
+                ]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart1.setOption(option1);
+
+    var myChart2 = echarts.init(document.getElementById('TypeAvg'));
+    option2 = {
+        title: {
+            text: '各种族平均数值'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        legend: {
+            data: ['WATER', 'STEEL', 'ROCK', 'PSYCHIC', 'POISON','NORMAL','ICE','GROUND','GRASS','GHOST','FLYING','FIRE','FIGHTING','FAIRY','ELECTRIC','DRAGON','DARK','BUG']
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        grid: {
+
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: ['总值平均', 'HP均值', 'Attack均值', 'Defense均值', '特攻均值', '特防均值', '速度均值']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: 'WATER',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [422,70,71,73,72,69,64]
+            },
+            {
+                name: 'STEEL',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [484,64,92,116,71,82,57]
+            },
+            {
+                name: 'ROCK',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [441,66,89,106,57,71,50]
+            },
+            {
+                name: 'PSYCHIC',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [465,70,69,71,92,84,76]
+            },
+            {
+                name: 'POISON',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [394,62,68,63,68,67,63]
+            },
+            {
+                name: 'NORMAL',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [398,76,72,58,56,62,71]
+            },
+            {
+                name: 'ICE',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [464,78,81,76,82,79,66]
+            },
+            {
+                name: 'GROUND',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [427,75,88,83,58,62,59]
+            },
+            {
+                name: 'GRASS',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [414,66,73,72,71,70,60]
+            },
+            {
+                name: 'GHOST',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [434,62,77,80,76,75,62]
+            },
+            {
+                name: 'FLYING',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [448,70,79,67,74,70,85]
+            },
+            {
+                name: 'FIRE',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [458,70,82,67,89,73,76]
+            },
+            {
+                name: 'FIGHTING',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [464,74,102,73,67,72,74]
+            },
+            {
+                name: 'FAIRY',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [395,69,57,63,72,79,53]
+            },
+            {
+                name: 'ELECTRIC',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [446,63,69,66,89,73,83]
+            },
+            {
+                name: 'DRAGON',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [522,82,102,84,91,83,77]
+            },
+            {
+                name: 'DARK',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [455,70,95,69,75,67,77]
+            },
+            {
+                name: 'BUG',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [377,56,70,71,53,64,60]
+            }
+        ]
+    };
+    option3 = {
+        name:"宝可梦种族能力对比",
+        title: {
+            text: '宝可梦种族能力对比'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        toolbox: {
+            right:20,
+            show: true,
+            feature: {
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data: ['WATER', 'STEEL','ROCK','PSYCHIC','POISON','NORMAL','ICE','GROUND','GRASS','GHOST','FLYING','FIRE','FIGHTING','FAIRY','ELECTRIC','DRAGON','DARK','BUG'],
+            top:40,
+            right:0,
+            orient: 'vertical',
+            selected: {
+                'WATER':true,
+                'STEEL':false,
+                'ROCK':false,
+                'PSYCHIC':false,
+                'POISON':false,
+                'NORMAL':false,
+                'ICE':false,
+                'GROUND':false,
+                'GRASS':true,
+                'GHOST':false,
+                'FLYING':false,
+                'FIRE':true,
+                'FIGHTING':false,
+                'FAIRY':false,
+                'ELECTRIC':false,
+                'DRAGON':false,
+                'DARK':false,
+                'BUG':false
+            }
+        },
+        selected: {
+            // 选中'系列1'
+            'WATER': false,
+            // 不选中'系列2'
+            'STEEL': false
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01]
+        },
+        yAxis: {
+            type: 'category',
+            data: ['平均种族值', '平均HP','平均攻击','平均防御','平均特攻','平均特防','平均速度']
+        },
+        series: [
+            {
+                name: 'WATER',
+                type: 'bar',
+                data: [422,70,71,73,72,69,64]
+            },
+            {
+                name: 'STEEL',
+                type: 'bar',
+                data: [484,64,92,116,71,82,57]
+            },
+            {
+                name: 'ROCK',
+                type: 'bar',
+                data: [441,66,89,106,57,71,50]
+            },
+            {
+                name: 'PSYCHIC',
+                type: 'bar',
+                data: [465,70,69,71,92,84,76]
+            },
+            {
+                name: 'POISON',
+                type: 'bar',
+                data: [394,62,68,63,68,67,63]
+            },
+            {
+                name: 'NORMAL',
+                type: 'bar',
+                data: [398,76,72,58,56,62,71]
+            },
+            {
+                name: 'ICE',
+                type: 'bar',
+                data: [464,78,81,76,82,79,66]
+            },
+            {
+                name: 'GROUND',
+                type: 'bar',
+                data: [427,75,88,83,58,62,59]
+            },
+            {
+                name: 'GRASS',
+                type: 'bar',
+                data: [414,66,73,72,71,70,60]
+            },
+            {
+                name: 'GHOST',
+                type: 'bar',
+                data: [434,62,77,80,76,75,62]
+            },
+            {
+                name: 'FLYING',
+                type: 'bar',
+                data: [448,70,79,67,74,70,85]
+            },
+            {
+                name: 'FIRE',
+                type: 'bar',
+                data: [458,70,82,67,89,73,76]
+            },
+            {
+                name: 'FIGHTING',
+                type: 'bar',
+                data: [464,74,102,73,67,72,74]
+            },
+            {
+                name: 'FAIRY',
+                type: 'bar',
+                data: [395,69,57,63,72,79,53]
+            },
+            {
+                name: 'ELECTRIC',
+                type: 'bar',
+                data: [446,63,69,66,89,73,83]
+            },
+            {
+                name: 'DRAGON',
+                type: 'bar',
+                data: [522,82,102,84,91,83,77]
+            },
+            {
+                name: 'DARK',
+                type: 'bar',
+                data: [455,70,95,69,75,67,77]
+            },
+            {
+                name: 'BUG',
+                type: 'bar',
+                data: [377,56,70,71,53,64,60]
+            }
+        ]
+    };
+    myChart2.setOption(option3)
+
+    var myChart3 = echarts.init(document.getElementById('Top5Pokemon'));
+    option4={
+        title: {
+            text: 'Top5精灵属性雷达图'
+        },
+        legend: {
+            data: ['Mega Mewtwo X', 'Mega Mewtwo Y','Arceus','White Kyurem','Mega Garchomp']
+        },
+        toolbox: {
+            right:20,
+            show: true,
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        radar: {
+            axisLabel:{
+                show:true
+            },
+            // shape: 'circle',
+            indicator: [
+                { name: 'Total', max: 800},
+                { name: 'HP', max: 200},
+                { name: 'Attack', max: 200},
+                { name: 'Defense', max: 200},
+                { name: 'Special Attack', max: 200},
+                { name: 'Special Defense', max: 200},
+                { name: 'Speed', max: 200}
+            ]
+        },
+        series: [{
+            type: 'radar',
+            data: [
+                {
+                    value: [780,106,190,100,154,100,130],
+                    name: 'Mega Mewtwo X'
+                },
+                {
+                    value: [780,106,150,70,194,120,140],
+                    name: 'Mega Mewtwo Y'
+                }
+                ,
+                {
+                    value: [720,120,120,120,120,120,120],
+                    name: 'Arceus'
+                }
+                ,
+                {
+                    value: [700,125,120,90,170,100,95],
+                    name: 'White Kyurem'
+                }
+                ,
+                {
+                    value: [700,108,170,115,120,95,92],
+                    name: 'Mega Garchomp'
+                }
+            ]
+        }]
+    }
+    myChart3.setOption(option4)
+
+    var myChart4=echarts.init(document.getElementById('NoEffect'),'roma');
+
+    option5 = {
+        layoutAnimation:false,
+        animationDurationUpdate: 1500,
+        animationEasingUpdate: 'quinticInOut',
+        title:{
+          text:"种族关系图"
+        },
+        toolbox: {
+            right:20,
+            show: true,
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        series:[
+            {
+                type: 'graph',
+                focusNodeAdjacency:true,
+                layout:'circular',
+                animation: false,
+                label: {
+                    show:true,
+                },
+                itemStyle: {
+                    color:"rgba(68,160,255,0.75)"
+                }
+                ,
+                lineStyle:{
+                    color: 'rgba(31,131,238,0.81)',
+                    curveness:0.1
+                },
+                edgeSymbol: ['circle', 'arrow'],
+                edgeSymbolSize:7,
+                edgeLabel: {                // 连接两个关系对象的线上的标签
+                    show: true,
+                    textStyle: {
+                        fontSize: 11
+                    },
+                    formatter: function(param) {
+                        if(param.data.source!=param.data.target)
+                        return param.data.name;
+                        return ""
+                    }
+                },
+                draggable: true,
+                data: [
+                    {
+                        name: 'WATER',
+                        symbolSize:30,
+                        fixed:true
+                    },
+                    {
+                        name: 'STEEL',
+                        symbolSize:30,
+                        fixed:true
+                    },
+                    {
+                        name: 'ROCK',
+                        symbolSize:30,
+                        fixed:true
+                    },
+                    {
+                        name: 'PSYCHIC',
+                        symbolSize:30,
+                        fixed:true
+                    },
+                    {
+                        name: 'POISON',
+                        symbolSize:30,
+                        fixed:true
+                    },
+                    {
+                        name: 'NORMAL',
+                        symbolSize:30
+                    },
+                    {
+                        name: 'ICE',
+                        symbolSize:30,
+                        fixed:true
+                    },
+                    {
+                        name: 'GROUND',
+                        symbolSize:30,
+                        fixed:true
+                    },
+                    {
+                        name: 'GRASS',
+                        symbolSize:30,
+                        fixed: true
+                    },
+                    {
+                        name: 'GHOST',
+                        symbolSize:30
+                    },
+                    {
+                        name: 'FLYING',
+                        symbolSize:30
+                    },
+                    {
+                        name: 'FIRE',
+                        symbolSize:30,
+                        fixed: true
+                    },
+                    {
+                        name: 'FIGHTING',
+                        symbolSize:30,
+                        fixed:true
+                    },
+                    {
+                        name: 'FAIRY',
+                        symbolSize:30,
+                        fixed:true
+                    },
+                    {
+                        name: 'ELECTRIC',
+                        symbolSize:30
+                    },
+                    {
+                        name: 'DRAGON',
+                        symbolSize:30
+                    },
+                    {
+                        name: 'DARK',
+                        symbolSize:30
+                    },
+                    {
+                        name: 'BUG',
+                        symbolSize:30
+                    }
+                ],
+                links:[
+                    {source:"NORMAL",target:"NORMAL",name:"Normal"},
+                    {source:"NORMAL",target:"FIRE",name:"Normal"},
+                    {source:"NORMAL",target:"WATER",name:"Normal"},
+                    {source:"NORMAL",target:"ELECTRIC",name:"Normal"},
+                    {source:"NORMAL",target:"GRASS",name:"Normal"},
+                    {source:"NORMAL",target:"ICE",name:"Normal"},
+                    {source:"NORMAL",target:"FIGHTING",name:"Normal"},
+                    {source:"NORMAL",target:"POISON",name:"Normal"},
+                    {source:"NORMAL",target:"GROUND",name:"Normal"},
+                    {source:"NORMAL",target:"FLYING",name:"Normal"},
+                    {source:"NORMAL",target:"PSYCHIC",name:"Normal"},
+                    {source:"NORMAL",target:"BUG",name:"Normal"},
+                    {source:"NORMAL",target:"ROCK",name:"Not Very Effective"},
+                    {source:"NORMAL",target:"GHOST",name:"No Effect"},
+                    {source:"NORMAL",target:"DRAGON",name:"Normal"},
+                    {source:"NORMAL",target:"DARK",name:"Normal"},
+                    {source:"NORMAL",target:"STEEL",name:"Not Very Effective"},
+                    {source:"NORMAL",target:"FAIRY",name:"Normal"},
+                    {source:"FIRE",target:"NORMAL",name:"Normal"},
+                    {source:"FIRE",target:"FIRE",name:"Not Very Effective"},
+                    {source:"FIRE",target:"WATER",name:"Not Very Effective"},
+                    {source:"FIRE",target:"ELECTRIC",name:"Normal"},
+                    {source:"FIRE",target:"GRASS",name:"Super Effective"},
+                    {source:"FIRE",target:"ICE",name:"Super Effective"},
+                    {source:"FIRE",target:"FIGHTING",name:"Normal"},
+                    {source:"FIRE",target:"POISON",name:"Normal"},
+                    {source:"FIRE",target:"GROUND",name:"Normal"},
+                    {source:"FIRE",target:"FLYING",name:"Normal"},
+                    {source:"FIRE",target:"PSYCHIC",name:"Normal"},
+                    {source:"FIRE",target:"BUG",name:"Super Effective"},
+                    {source:"FIRE",target:"ROCK",name:"Not Very Effective"},
+                    {source:"FIRE",target:"GHOST",name:"Normal"},
+                    {source:"FIRE",target:"DRAGON",name:"Not Very Effective"},
+                    {source:"FIRE",target:"DARK",name:"Normal"},
+                    {source:"FIRE",target:"STEEL",name:"Super Effective"},
+                    {source:"FIRE",target:"FAIRY",name:"Normal"},
+                    {source:"WATER",target:"NORMAL",name:"Normal"},
+                    {source:"WATER",target:"FIRE",name:"Super Effective"},
+                    {source:"WATER",target:"WATER",name:"Not Very Effective"},
+                    {source:"WATER",target:"ELECTRIC",name:"Normal"},
+                    {source:"WATER",target:"GRASS",name:"Not Very Effective"},
+                    {source:"WATER",target:"ICE",name:"Normal"},
+                    {source:"WATER",target:"FIGHTING",name:"Normal"},
+                    {source:"WATER",target:"POISON",name:"Normal"},
+                    {source:"WATER",target:"GROUND",name:"Super Effective"},
+                    {source:"WATER",target:"FLYING",name:"Normal"},
+                    {source:"WATER",target:"PSYCHIC",name:"Normal"},
+                    {source:"WATER",target:"BUG",name:"Normal"},
+                    {source:"WATER",target:"ROCK",name:"Super Effective"},
+                    {source:"WATER",target:"GHOST",name:"Normal"},
+                    {source:"WATER",target:"DRAGON",name:"Not Very Effective"},
+                    {source:"WATER",target:"DARK",name:"Normal"},
+                    {source:"WATER",target:"STEEL",name:"Normal"},
+                    {source:"WATER",target:"FAIRY",name:"Normal"},
+                    {source:"ELECTRIC",target:"NORMAL",name:"Normal"},
+                    {source:"ELECTRIC",target:"FIRE",name:"Normal"},
+                    {source:"ELECTRIC",target:"WATER",name:"Super Effective"},
+                    {source:"ELECTRIC",target:"ELECTRIC",name:"Not Very Effective"},
+                    {source:"ELECTRIC",target:"GRASS",name:"Not Very Effective"},
+                    {source:"ELECTRIC",target:"ICE",name:"Normal"},
+                    {source:"ELECTRIC",target:"FIGHTING",name:"Normal"},
+                    {source:"ELECTRIC",target:"POISON",name:"Normal"},
+                    {source:"ELECTRIC",target:"GROUND",name:"No Effect"},
+                    {source:"ELECTRIC",target:"FLYING",name:"Super Effective"},
+                    {source:"ELECTRIC",target:"PSYCHIC",name:"Normal"},
+                    {source:"ELECTRIC",target:"BUG",name:"Normal"},
+                    {source:"ELECTRIC",target:"ROCK",name:"Normal"},
+                    {source:"ELECTRIC",target:"GHOST",name:"Normal"},
+                    {source:"ELECTRIC",target:"DRAGON",name:"Not Very Effective"},
+                    {source:"ELECTRIC",target:"DARK",name:"Normal"},
+                    {source:"ELECTRIC",target:"STEEL",name:"Normal"},
+                    {source:"ELECTRIC",target:"FAIRY",name:"Normal"},
+                    {source:"GRASS",target:"NORMAL",name:"Normal"},
+                    {source:"GRASS",target:"FIRE",name:"Not Very Effective"},
+                    {source:"GRASS",target:"WATER",name:"Super Effective"},
+                    {source:"GRASS",target:"ELECTRIC",name:"Normal"},
+                    {source:"GRASS",target:"GRASS",name:"Not Very Effective"},
+                    {source:"GRASS",target:"ICE",name:"Normal"},
+                    {source:"GRASS",target:"FIGHTING",name:"Normal"},
+                    {source:"GRASS",target:"POISON",name:"Not Very Effective"},
+                    {source:"GRASS",target:"GROUND",name:"Super Effective"},
+                    {source:"GRASS",target:"FLYING",name:"Not Very Effective"},
+                    {source:"GRASS",target:"PSYCHIC",name:"Normal"},
+                    {source:"GRASS",target:"BUG",name:"Not Very Effective"},
+                    {source:"GRASS",target:"ROCK",name:"Super Effective"},
+                    {source:"GRASS",target:"GHOST",name:"Normal"},
+                    {source:"GRASS",target:"DRAGON",name:"Not Very Effective"},
+                    {source:"GRASS",target:"DARK",name:"Normal"},
+                    {source:"GRASS",target:"STEEL",name:"Not Very Effective"},
+                    {source:"GRASS",target:"FAIRY",name:"Normal"},
+                    {source:"ICE",target:"NORMAL",name:"Normal"},
+                    {source:"ICE",target:"FIRE",name:"Not Very Effective"},
+                    {source:"ICE",target:"WATER",name:"Not Very Effective"},
+                    {source:"ICE",target:"ELECTRIC",name:"Normal"},
+                    {source:"ICE",target:"GRASS",name:"Super Effective"},
+                    {source:"ICE",target:"ICE",name:"Not Very Effective"},
+                    {source:"ICE",target:"FIGHTING",name:"Normal"},
+                    {source:"ICE",target:"POISON",name:"Normal"},
+                    {source:"ICE",target:"GROUND",name:"Super Effective"},
+                    {source:"ICE",target:"FLYING",name:"Super Effective"},
+                    {source:"ICE",target:"PSYCHIC",name:"Normal"},
+                    {source:"ICE",target:"BUG",name:"Normal"},
+                    {source:"ICE",target:"ROCK",name:"Normal"},
+                    {source:"ICE",target:"GHOST",name:"Normal"},
+                    {source:"ICE",target:"DRAGON",name:"Super Effective"},
+                    {source:"ICE",target:"DARK",name:"Normal"},
+                    {source:"ICE",target:"STEEL",name:"Not Very Effective"},
+                    {source:"ICE",target:"FAIRY",name:"Normal"},
+                    {source:"FIGHTING",target:"NORMAL",name:"Super Effective"},
+                    {source:"FIGHTING",target:"FIRE",name:"Normal"},
+                    {source:"FIGHTING",target:"WATER",name:"Normal"},
+                    {source:"FIGHTING",target:"ELECTRIC",name:"Normal"},
+                    {source:"FIGHTING",target:"GRASS",name:"Normal"},
+                    {source:"FIGHTING",target:"ICE",name:"Super Effective"},
+                    {source:"FIGHTING",target:"FIGHTING",name:"Normal"},
+                    {source:"FIGHTING",target:"POISON",name:"Not Very Effective"},
+                    {source:"FIGHTING",target:"GROUND",name:"Normal"},
+                    {source:"FIGHTING",target:"FLYING",name:"Not Very Effective"},
+                    {source:"FIGHTING",target:"PSYCHIC",name:"Not Very Effective"},
+                    {source:"FIGHTING",target:"BUG",name:"Not Very Effective"},
+                    {source:"FIGHTING",target:"ROCK",name:"Super Effective"},
+                    {source:"FIGHTING",target:"GHOST",name:"No Effect"},
+                    {source:"FIGHTING",target:"DRAGON",name:"Normal"},
+                    {source:"FIGHTING",target:"DARK",name:"Super Effective"},
+                    {source:"FIGHTING",target:"STEEL",name:"Super Effective"},
+                    {source:"FIGHTING",target:"FAIRY",name:"Not Very Effective"},
+                    {source:"POISON",target:"NORMAL",name:"Normal"},
+                    {source:"POISON",target:"FIRE",name:"Normal"},
+                    {source:"POISON",target:"WATER",name:"Normal"},
+                    {source:"POISON",target:"ELECTRIC",name:"Normal"},
+                    {source:"POISON",target:"GRASS",name:"Super Effective"},
+                    {source:"POISON",target:"ICE",name:"Normal"},
+                    {source:"POISON",target:"FIGHTING",name:"Normal"},
+                    {source:"POISON",target:"POISON",name:"Not Very Effective"},
+                    {source:"POISON",target:"GROUND",name:"Not Very Effective"},
+                    {source:"POISON",target:"FLYING",name:"Normal"},
+                    {source:"POISON",target:"PSYCHIC",name:"Normal"},
+                    {source:"POISON",target:"BUG",name:"Normal"},
+                    {source:"POISON",target:"ROCK",name:"Not Very Effective"},
+                    {source:"POISON",target:"GHOST",name:"Not Very Effective"},
+                    {source:"POISON",target:"DRAGON",name:"Normal"},
+                    {source:"POISON",target:"DARK",name:"Normal"},
+                    {source:"POISON",target:"STEEL",name:"No Effect"},
+                    {source:"POISON",target:"FAIRY",name:"Super Effective"},
+                    {source:"GROUND",target:"NORMAL",name:"Normal"},
+                    {source:"GROUND",target:"FIRE",name:"Super Effective"},
+                    {source:"GROUND",target:"WATER",name:"Normal"},
+                    {source:"GROUND",target:"ELECTRIC",name:"Super Effective"},
+                    {source:"GROUND",target:"GRASS",name:"Not Very Effective"},
+                    {source:"GROUND",target:"ICE",name:"Normal"},
+                    {source:"GROUND",target:"FIGHTING",name:"Normal"},
+                    {source:"GROUND",target:"POISON",name:"Super Effective"},
+                    {source:"GROUND",target:"GROUND",name:"Normal"},
+                    {source:"GROUND",target:"FLYING",name:"No Effect"},
+                    {source:"GROUND",target:"PSYCHIC",name:"Normal"},
+                    {source:"GROUND",target:"BUG",name:"Not Very Effective"},
+                    {source:"GROUND",target:"ROCK",name:"Super Effective"},
+                    {source:"GROUND",target:"GHOST",name:"Normal"},
+                    {source:"GROUND",target:"DRAGON",name:"Normal"},
+                    {source:"GROUND",target:"DARK",name:"Normal"},
+                    {source:"GROUND",target:"STEEL",name:"Super Effective"},
+                    {source:"GROUND",target:"FAIRY",name:"Normal"},
+                    {source:"FLYING",target:"NORMAL",name:"Normal"},
+                    {source:"FLYING",target:"FIRE",name:"Normal"},
+                    {source:"FLYING",target:"WATER",name:"Normal"},
+                    {source:"FLYING",target:"ELECTRIC",name:"Not Very Effective"},
+                    {source:"FLYING",target:"GRASS",name:"Super Effective"},
+                    {source:"FLYING",target:"ICE",name:"Normal"},
+                    {source:"FLYING",target:"FIGHTING",name:"Super Effective"},
+                    {source:"FLYING",target:"POISON",name:"Normal"},
+                    {source:"FLYING",target:"GROUND",name:"Normal"},
+                    {source:"FLYING",target:"FLYING",name:"Normal"},
+                    {source:"FLYING",target:"PSYCHIC",name:"Normal"},
+                    {source:"FLYING",target:"BUG",name:"Super Effective"},
+                    {source:"FLYING",target:"ROCK",name:"Not Very Effective"},
+                    {source:"FLYING",target:"GHOST",name:"Normal"},
+                    {source:"FLYING",target:"DRAGON",name:"Normal"},
+                    {source:"FLYING",target:"DARK",name:"Normal"},
+                    {source:"FLYING",target:"STEEL",name:"Not Very Effective"},
+                    {source:"FLYING",target:"FAIRY",name:"Normal"},
+                    {source:"PSYCHIC",target:"NORMAL",name:"Normal"},
+                    {source:"PSYCHIC",target:"FIRE",name:"Normal"},
+                    {source:"PSYCHIC",target:"WATER",name:"Normal"},
+                    {source:"PSYCHIC",target:"ELECTRIC",name:"Normal"},
+                    {source:"PSYCHIC",target:"GRASS",name:"Normal"},
+                    {source:"PSYCHIC",target:"ICE",name:"Normal"},
+                    {source:"PSYCHIC",target:"FIGHTING",name:"Super Effective"},
+                    {source:"PSYCHIC",target:"POISON",name:"Super Effective"},
+                    {source:"PSYCHIC",target:"GROUND",name:"Normal"},
+                    {source:"PSYCHIC",target:"FLYING",name:"Normal"},
+                    {source:"PSYCHIC",target:"PSYCHIC",name:"Not Very Effective"},
+                    {source:"PSYCHIC",target:"BUG",name:"Normal"},
+                    {source:"PSYCHIC",target:"ROCK",name:"Normal"},
+                    {source:"PSYCHIC",target:"GHOST",name:"Normal"},
+                    {source:"PSYCHIC",target:"DRAGON",name:"Normal"},
+                    {source:"PSYCHIC",target:"DARK",name:"No Effect"},
+                    {source:"PSYCHIC",target:"STEEL",name:"Not Very Effective"},
+                    {source:"PSYCHIC",target:"FAIRY",name:"Normal"},
+                    {source:"BUG",target:"NORMAL",name:"Normal"},
+                    {source:"BUG",target:"FIRE",name:"Not Very Effective"},
+                    {source:"BUG",target:"WATER",name:"Normal"},
+                    {source:"BUG",target:"ELECTRIC",name:"Normal"},
+                    {source:"BUG",target:"GRASS",name:"Super Effective"},
+                    {source:"BUG",target:"ICE",name:"Normal"},
+                    {source:"BUG",target:"FIGHTING",name:"Not Very Effective"},
+                    {source:"BUG",target:"POISON",name:"Not Very Effective"},
+                    {source:"BUG",target:"GROUND",name:"Normal"},
+                    {source:"BUG",target:"FLYING",name:"Not Very Effective"},
+                    {source:"BUG",target:"PSYCHIC",name:"Super Effective"},
+                    {source:"BUG",target:"BUG",name:"Normal"},
+                    {source:"BUG",target:"ROCK",name:"Normal"},
+                    {source:"BUG",target:"GHOST",name:"Not Very Effective"},
+                    {source:"BUG",target:"DRAGON",name:"Normal"},
+                    {source:"BUG",target:"DARK",name:"Super Effective"},
+                    {source:"BUG",target:"STEEL",name:"Not Very Effective"},
+                    {source:"BUG",target:"FAIRY",name:"Not Very Effective"},
+                    {source:"ROCK",target:"NORMAL",name:"Normal"},
+                    {source:"ROCK",target:"FIRE",name:"Super Effective"},
+                    {source:"ROCK",target:"WATER",name:"Normal"},
+                    {source:"ROCK",target:"ELECTRIC",name:"Normal"},
+                    {source:"ROCK",target:"GRASS",name:"Normal"},
+                    {source:"ROCK",target:"ICE",name:"Super Effective"},
+                    {source:"ROCK",target:"FIGHTING",name:"Not Very Effective"},
+                    {source:"ROCK",target:"POISON",name:"Normal"},
+                    {source:"ROCK",target:"GROUND",name:"Not Very Effective"},
+                    {source:"ROCK",target:"FLYING",name:"Super Effective"},
+                    {source:"ROCK",target:"PSYCHIC",name:"Normal"},
+                    {source:"ROCK",target:"BUG",name:"Super Effective"},
+                    {source:"ROCK",target:"ROCK",name:"Normal"},
+                    {source:"ROCK",target:"GHOST",name:"Normal"},
+                    {source:"ROCK",target:"DRAGON",name:"Normal"},
+                    {source:"ROCK",target:"DARK",name:"Normal"},
+                    {source:"ROCK",target:"STEEL",name:"Not Very Effective"},
+                    {source:"ROCK",target:"FAIRY",name:"Normal"},
+                    {source:"GHOST",target:"NORMAL",name:"No Effect"},
+                    {source:"GHOST",target:"FIRE",name:"Normal"},
+                    {source:"GHOST",target:"WATER",name:"Normal"},
+                    {source:"GHOST",target:"ELECTRIC",name:"Normal"},
+                    {source:"GHOST",target:"GRASS",name:"Normal"},
+                    {source:"GHOST",target:"ICE",name:"Normal"},
+                    {source:"GHOST",target:"FIGHTING",name:"Normal"},
+                    {source:"GHOST",target:"POISON",name:"Normal"},
+                    {source:"GHOST",target:"GROUND",name:"Normal"},
+                    {source:"GHOST",target:"FLYING",name:"Normal"},
+                    {source:"GHOST",target:"PSYCHIC",name:"Super Effective"},
+                    {source:"GHOST",target:"BUG",name:"Normal"},
+                    {source:"GHOST",target:"ROCK",name:"Normal"},
+                    {source:"GHOST",target:"GHOST",name:"Super Effective"},
+                    {source:"GHOST",target:"DRAGON",name:"Normal"},
+                    {source:"GHOST",target:"DARK",name:"Not Very Effective"},
+                    {source:"GHOST",target:"STEEL",name:"Normal"},
+                    {source:"GHOST",target:"FAIRY",name:"Normal"},
+                    {source:"DRAGON",target:"NORMAL",name:"Normal"},
+                    {source:"DRAGON",target:"FIRE",name:"Normal"},
+                    {source:"DRAGON",target:"WATER",name:"Normal"},
+                    {source:"DRAGON",target:"ELECTRIC",name:"Normal"},
+                    {source:"DRAGON",target:"GRASS",name:"Normal"},
+                    {source:"DRAGON",target:"ICE",name:"Normal"},
+                    {source:"DRAGON",target:"FIGHTING",name:"Normal"},
+                    {source:"DRAGON",target:"POISON",name:"Normal"},
+                    {source:"DRAGON",target:"GROUND",name:"Normal"},
+                    {source:"DRAGON",target:"FLYING",name:"Normal"},
+                    {source:"DRAGON",target:"PSYCHIC",name:"Normal"},
+                    {source:"DRAGON",target:"BUG",name:"Normal"},
+                    {source:"DRAGON",target:"ROCK",name:"Normal"},
+                    {source:"DRAGON",target:"GHOST",name:"Normal"},
+                    {source:"DRAGON",target:"DRAGON",name:"Super Effective"},
+                    {source:"DRAGON",target:"DARK",name:"Normal"},
+                    {source:"DRAGON",target:"STEEL",name:"Not Very Effective"},
+                    {source:"DRAGON",target:"FAIRY",name:"No Effect"},
+                    {source:"DARK",target:"NORMAL",name:"Normal"},
+                    {source:"DARK",target:"FIRE",name:"Normal"},
+                    {source:"DARK",target:"WATER",name:"Normal"},
+                    {source:"DARK",target:"ELECTRIC",name:"Normal"},
+                    {source:"DARK",target:"GRASS",name:"Normal"},
+                    {source:"DARK",target:"ICE",name:"Normal"},
+                    {source:"DARK",target:"FIGHTING",name:"Not Very Effective"},
+                    {source:"DARK",target:"POISON",name:"Normal"},
+                    {source:"DARK",target:"GROUND",name:"Normal"},
+                    {source:"DARK",target:"FLYING",name:"Normal"},
+                    {source:"DARK",target:"PSYCHIC",name:"Super Effective"},
+                    {source:"DARK",target:"BUG",name:"Normal"},
+                    {source:"DARK",target:"ROCK",name:"Normal"},
+                    {source:"DARK",target:"GHOST",name:"Super Effective"},
+                    {source:"DARK",target:"DRAGON",name:"Normal"},
+                    {source:"DARK",target:"DARK",name:"Not Very Effective"},
+                    {source:"DARK",target:"STEEL",name:"Normal"},
+                    {source:"DARK",target:"FAIRY",name:"Not Very Effective"},
+                    {source:"STEEL",target:"NORMAL",name:"Normal"},
+                    {source:"STEEL",target:"FIRE",name:"Not Very Effective"},
+                    {source:"STEEL",target:"WATER",name:"Not Very Effective"},
+                    {source:"STEEL",target:"ELECTRIC",name:"Not Very Effective"},
+                    {source:"STEEL",target:"GRASS",name:"Normal"},
+                    {source:"STEEL",target:"ICE",name:"Super Effective"},
+                    {source:"STEEL",target:"FIGHTING",name:"Normal"},
+                    {source:"STEEL",target:"POISON",name:"Normal"},
+                    {source:"STEEL",target:"GROUND",name:"Normal"},
+                    {source:"STEEL",target:"FLYING",name:"Normal"},
+                    {source:"STEEL",target:"PSYCHIC",name:"Normal"},
+                    {source:"STEEL",target:"BUG",name:"Normal"},
+                    {source:"STEEL",target:"ROCK",name:"Super Effective"},
+                    {source:"STEEL",target:"GHOST",name:"Normal"},
+                    {source:"STEEL",target:"DRAGON",name:"Normal"},
+                    {source:"STEEL",target:"DARK",name:"Normal"},
+                    {source:"STEEL",target:"STEEL",name:"Not Very Effective"},
+                    {source:"STEEL",target:"FAIRY",name:"Super Effective"},
+                    {source:"FAIRY",target:"NORMAL",name:"Normal"},
+                    {source:"FAIRY",target:"FIRE",name:"Not Very Effective"},
+                    {source:"FAIRY",target:"WATER",name:"Normal"},
+                    {source:"FAIRY",target:"ELECTRIC",name:"Normal"},
+                    {source:"FAIRY",target:"GRASS",name:"Normal"},
+                    {source:"FAIRY",target:"ICE",name:"Normal"},
+                    {source:"FAIRY",target:"FIGHTING",name:"Super Effective"},
+                    {source:"FAIRY",target:"POISON",name:"Not Very Effective"},
+                    {source:"FAIRY",target:"GROUND",name:"Normal"},
+                    {source:"FAIRY",target:"FLYING",name:"Normal"},
+                    {source:"FAIRY",target:"PSYCHIC",name:"Normal"},
+                    {source:"FAIRY",target:"BUG",name:"Normal"},
+                    {source:"FAIRY",target:"ROCK",name:"Normal"},
+                    {source:"FAIRY",target:"GHOST",name:"Normal"},
+                    {source:"FAIRY",target:"DRAGON",name:"Super Effective"},
+                    {source:"FAIRY",target:"DARK",name:"Super Effective"},
+                    {source:"FAIRY",target:"STEEL",name:"Not Very Effective"},
+                    {source:"FAIRY",target:"FAIRY",name:"Normal"}
+                ]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表
+    myChart4.setOption(option5)
+
+</script>
+</body>
+</html>

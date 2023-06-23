@@ -1,0 +1,163 @@
+<!--
+    THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/zh/editor.html?c=bar-y-category
+-->
+<!DOCTYPE html>
+<html style="height: 100%">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body style="height: 100%; margin: 0">
+        <div id="container" style="height: 100%"></div>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+        <!-- Uncomment this line if you want to dataTool extension
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+        -->
+        <!-- Uncomment this line if you want to use gl extension
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+        -->
+        <!-- Uncomment this line if you want to echarts-stat extension
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+        -->
+        <!-- Uncomment this line if you want to use map
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/china.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/world.js"></script>
+        -->
+        <!-- Uncomment these two lines if you want to use bmap extension
+        <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<Your Key Here>"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+        -->
+
+        <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+var region = ["怀柔区", "平谷区", "延庆县", "门头沟区", "昌平区", "密云县", "房山区", "顺义区", "西城区", "东城区", "朝阳区", "丰台区", "海淀区", "大兴区", "石景山区", "通州区"];
+var min = [93, 70, 84, 76, 66, 65, 66, 75, 128, 48, 53, 52, 65, 64, 75, 59];
+var max = [23744, 15000, 29249, 18174, 66666, 70000, 15000, 60000, 26534, 14486, 69000, 65466, 68980, 30000, 9999, 33658];
+var avg = [1910, 1871, 1734, 1369, 1292, 1185, 940, 873, 850, 791, 684, 664, 625, 620, 577, 553];
+var colors = ['#5470C6', '#91CC75', '#EE6666'];
+
+var option;
+
+
+
+option = {
+    color: colors,
+    title: {
+        text: '北京市各区域租房价格分布',
+        subtext: '2019-4-17',
+        left: 'center'
+    },
+	toolbox: {
+		right: 10,
+		feature: {
+			dataZoom: {
+				yAxisIndex: 'none'
+			},
+			restore: {},
+			saveAsImage: {}
+		}
+	},	
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross'
+        }
+    },
+    legend: {
+        data: ['最小值', '平均值', '最大值'],
+		top: '6%'
+    },
+    grid: {
+	    top: '10%',
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'category',
+        data: region,
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: [
+		{
+            type: 'value',
+            name: '最小值',
+            min: 0,
+            max: 150,
+            position: 'right',
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: colors[0]
+                }
+            },
+            axisLabel: {
+                formatter: '{value}'
+            }
+        },
+        {
+            type: 'value',
+            name: '平均值',
+            min: 500,
+            max: 2000,
+            position: 'right',
+            offset: 80,
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: colors[1]
+                }
+            },
+            axisLabel: {
+                formatter: '{value}'
+            }
+        },
+        {
+            type: 'value',
+            name: '最大值',
+            min: 9000,
+            max: 70000,
+            position: 'left',
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: colors[2]
+                }
+            },
+            axisLabel: {
+                formatter: '{value}'
+            }
+        }
+    ],
+    series: [
+        {
+            name: '最小值',
+            type: 'bar',
+            data: min
+        },
+        {
+            name: '平均值',
+            type: 'bar',
+            data: avg,
+			yAxisIndex: 1,
+        },
+		{
+            name: '最大值',
+            type: 'line',
+            data: max,
+			yAxisIndex: 2,
+        }
+    ]
+};
+
+if (option && typeof option === 'object') {
+    myChart.setOption(option);
+}
+
+        </script>
+    </body>
+</html>
+    

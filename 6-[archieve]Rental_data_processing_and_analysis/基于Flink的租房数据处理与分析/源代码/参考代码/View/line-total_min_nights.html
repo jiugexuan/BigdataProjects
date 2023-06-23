@@ -1,0 +1,124 @@
+<!--
+    THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/zh/editor.html?c=line-sections
+-->
+<!DOCTYPE html>
+<html style="height: 100%">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body style="height: 100%; margin: 0">
+        <div id="container" style="height: 100%"></div>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+        <!-- Uncomment this line if you want to dataTool extension
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+        -->
+        <!-- Uncomment this line if you want to use gl extension
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+        -->
+        <!-- Uncomment this line if you want to echarts-stat extension
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+        -->
+        <!-- Uncomment this line if you want to use map
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/china.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/world.js"></script>
+        -->
+        <!-- Uncomment these two lines if you want to use bmap extension
+        <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<Your Key Here>"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+        -->
+
+        <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+
+var option;
+var data = [[1, 20542], [2, 950], [3, 519], [4, 32], [5, 196], [6, 45], [7, 224], [8, 9], [9, 1], [10, 93], [11, 3], [12, 3], [13, 1], [14, 11], [15, 134], [16, 1], [18, 1], [19, 2], [20, 50], [21, 3], [25, 4], [27, 2], [28, 16], [30, 483], [31, 25], [32, 1], [33, 1], [35, 3], [39, 1], [40, 1], [43, 1], [45, 5], [50, 24], [60, 23], [61, 1], [69, 1], [90, 96], [99, 2], [100, 58], [120, 4], [160, 1], [180, 22], [181, 1], [182, 1], [200, 1], [240, 1], [300, 12], [350, 1], [356, 1], [360, 4], [364, 1], [365, 58], [366, 1]];
+option = {
+    title: {
+        text: '北京市短租房最短租期分布',
+        subtext: '2019-4-17',
+        left: 'center'
+    },
+	toolbox: {
+		right: 10,
+		feature: {
+			dataZoom: {
+				yAxisIndex: 'none'
+			},
+			restore: {},
+			saveAsImage: {}
+		}
+	},	
+    toolbox: {
+        show: true,
+        feature: {
+            saveAsImage: {}
+        }
+    },
+	tooltip: {
+        trigger: 'item'
+    },
+    xAxis: {
+        name: 'min_night',
+		min: 0,
+        max: 365,
+		interval: 30,
+        minorTick: {
+            show: true
+        },
+        minorSplitLine: {
+            show: true
+        }
+    },
+    yAxis: {
+        name: 'number',
+        minorTick: {
+            show: true
+        },
+        minorSplitLine: {
+            show: true
+        }
+    },
+	visualMap: {
+        show: false,
+        dimension: 0,
+        pieces: [{
+            gte: 0,
+            lte: 30,
+            color: 'red'
+        },{
+            gt: 30,
+            color: 'green'
+        }]
+    },
+    series: [
+        {
+            name: '房屋数量',
+            type: 'line',
+            smooth: true,
+            data: data,
+            markArea: {
+                itemStyle: {
+                    color: 'rgba(255, 173, 177, 0.4)'
+                },
+                data: [ [{
+                    name: '0~30',
+                    xAxis: 0
+                }, {
+                    xAxis: 30
+                }]]
+            }
+        }
+    ]
+};
+
+if (option && typeof option === 'object') {
+    myChart.setOption(option);
+}
+
+        </script>
+    </body>
+</html>
+    

@@ -1,0 +1,65 @@
+<!--
+    THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/zh/editor.html?c=bar-simple
+-->
+<!DOCTYPE html>
+<html style="height: 100%">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body style="height: 100%; margin: 0">
+        <div id="container" style="height: 100%"></div>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+        <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+
+var option;
+
+
+
+option = {
+    title: {
+        text: '北京市短租房价格分布',
+        subtext: '2019-4-17',
+        left: 'center'
+    },
+	toolbox: {
+		right: 10,
+		feature: {
+			dataZoom: {
+				yAxisIndex: 'none'
+			},
+			restore: {},
+			saveAsImage: {}
+		}
+	},	
+    xAxis: {
+        type: 'category',
+        data: ['0~150', '150~300', '300~450', '450~600', '600~1000', '1000+'],
+		name: '金额'
+    },
+    yAxis: {
+        type: 'value',
+		name: '数量'
+    },
+    series: [{
+        data: [1774, 5916, 4927, 3435, 3083, 4545],
+        type: 'bar',
+		label: {
+		    show:true,
+			position: 'top'
+		}
+    }]
+};
+
+if (option && typeof option === 'object') {
+    myChart.setOption(option);
+}
+
+        </script>
+    </body>
+</html>
+    
